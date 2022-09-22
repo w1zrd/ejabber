@@ -1,0 +1,26 @@
+version: '3'
+services:
+  ejabberd:
+    container_name: ejabberd
+    image: ejabberd/ecs
+    ports:
+      - "5222:5222"
+      - "5223:5222"
+      - "5269:5269"
+      - "5270:5270"
+      - "5280:5280"
+      - "5443:5433"
+    volumes:
+      - ./ejabberd.yml:/home/ejabberd/conf/ejabberd.yml
+      - ./certs/key.pem:/opt/ejabberd/conf/key.pem
+      - ./certs/chain.pem:/opt/ejabberd/conf/chain.pem
+      - ./certs/fullchain.pem:/opt/ejabberd/conf/fullchain.pem
+      - ./certs/cert.pem:/opt/ejabberd/conf/cert.pem
+      - ./database:/home/ejabberd/database
+      - ./upload:/home/ejabberd/upload
+    restart: unless-stopped
+
+networks:
+  default:
+    external:
+      name: ejabber
