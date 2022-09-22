@@ -22,7 +22,7 @@ services:
       mysql:
         condition: service_healthy
     environment:
-      - CTL_ON_CREATE=register admin localhost asd ;
+      - CTL_ON_CREATE=register admin localhost password ;
                       register user1my mysql.localhost asd
       - CTL_ON_START=stats registeredusers ;
                      status
@@ -62,15 +62,3 @@ services:
       MYSQL_DATABASE: ejabberd_test
       MYSQL_USER: ejabberd_test
       MYSQL_PASSWORD: ejabberd_test
-
-  adminer:
-    image: adminer
-    container_name: adminer
-    restart: always
-    depends_on:
-      mysql:
-        condition: service_healthy
-      main:
-        condition: service_healthy
-    ports:
-      - 8080:8080
