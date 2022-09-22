@@ -14,8 +14,8 @@ volumes:
 
 services:
 
-  main:
-    hostname: main
+  jabber:
+    hostname: jabber
     container_name: main
     image: ejabberd/ecs:latest
     depends_on:
@@ -23,7 +23,7 @@ services:
         condition: service_healthy
     environment:
       - CTL_ON_CREATE=register admin localhost password ;
-                      register user1my mysql.localhost asd
+                      register user mysql.localhost password
       - CTL_ON_START=stats registeredusers ;
                      status
     command: ["foreground"]

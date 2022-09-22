@@ -1,0 +1,1 @@
+https://github.com/processone/docker-ejabberd/issues/69
