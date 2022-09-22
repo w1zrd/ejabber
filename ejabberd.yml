@@ -1,15 +1,8 @@
+### ejabberd configuration file
 ###
-###              ejabberd configuration file
+### the parameters used in this configuration file are explained at
+### https://docs.ejabberd.im/admin/configuration
 ###
-### The parameters used in this configuration file are explained at
-###
-###       https://docs.ejabberd.im/admin/configuration
-###
-### The configuration file is written in YAML.
-### *******************************************************
-### *******           !!! WARNING !!!               *******
-### *******     YAML IS INDENTATION SENSITIVE       *******
-### ******* MAKE SURE YOU INDENT SECTIONS CORRECTLY *******
 ### *******************************************************
 ### Refer to http://en.wikipedia.org/wiki/YAML for the brief description.
 ###
@@ -34,8 +27,14 @@ host_config:
 
 ## If you already have certificates, list them here
 # certfiles:
-#  - /etc/letsencrypt/live/domain.tld/fullchain.pem
-#  - /etc/letsencrypt/live/domain.tld/privkey.pem
+# - /home/ejabberd/conf/certs/fullchain.pem
+# - /home/ejabberd/conf/certs/privkey.pem
+
+certfiles:
+  - /home/ejabberd/conf/server.pem
+
+ca_file:
+  - /home/ejabberd/conf/cacert.pem
 
 listen:
   -
@@ -78,7 +77,7 @@ listen:
     module: ejabberd_http
     request_handlers:
       /admin: ejabberd_web_admin
-      /.well-known/acme-challenge: ejabberd_acme
+      # /.well-known/acme-challenge: ejabberd_acme
   -
     port: 3478
     ip: "::"
@@ -166,6 +165,10 @@ shaper_rules:
     none: admin
     normal: all
   s2s_shaper: fast
+
+acme:
+   contact: "mailto:admin@mail.com"
+   ca_url: "https://acme-staging-v02.api.letsencrypt.org/directory"
 
 modules:
   mod_adhoc: {}
